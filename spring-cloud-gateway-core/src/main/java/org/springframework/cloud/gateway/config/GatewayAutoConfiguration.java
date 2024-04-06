@@ -89,8 +89,7 @@ import static org.springframework.cloud.gateway.config.HttpClientProperties.Pool
  * @author Ziemowit Stolarczyk
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(name = "spring.cloud.gateway.enabled", matchIfMissing = true)
-
+@ConditionalOnProperty(name = "spring.cloud.gateway.enabled", matchIfMissing = true)// 启用网关
 @EnableConfigurationProperties
 @AutoConfigureBefore({ HttpHandlerAutoConfiguration.class,
 		WebFluxAutoConfiguration.class })
@@ -216,7 +215,6 @@ public class GatewayAutoConfiguration {
 	}
 
 	// GlobalFilter beans 初始化各种内置的 GlobalFilter
-
 	@Bean
 	public AdaptCachedBodyGlobalFilter adaptCachedBodyGlobalFilter() {
 		return new AdaptCachedBodyGlobalFilter();
@@ -494,7 +492,7 @@ public class GatewayAutoConfiguration {
 	}
 
 	/**
-	 * 初始化 NettyConfiguration
+	 * 初始化 NettyConfiguration Netty配置
 	 **/
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(HttpClient.class)

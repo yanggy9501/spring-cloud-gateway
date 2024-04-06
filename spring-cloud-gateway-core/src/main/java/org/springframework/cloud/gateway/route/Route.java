@@ -16,40 +16,47 @@
 
 package org.springframework.cloud.gateway.route;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Predicate;
-
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.handler.AsyncPredicate;
+import org.springframework.cloud.gateway.handler.predicate.RoutePredicateFactory;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.Ordered;
 import org.springframework.util.Assert;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
+import java.util.*;
+import java.util.function.Predicate;
+
 import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.toAsyncPredicate;
 
 /**
+ * gateway 三大核心主件 Route
  * @author Spencer Gibb
  */
 public class Route implements Ordered {
-
+	/**
+	 * 路由唯一ID
+	 */
 	private final String id;
 
+	/**
+	 * 转发目的地址 URI
+	 */
 	private final URI uri;
 
 	private final int order;
 
+	/**
+	 * 路由匹配断言
+	 * @see RoutePredicateFactory
+	 */
 	private final AsyncPredicate<ServerWebExchange> predicate;
 
+	/**
+	 * 该路由网关过滤器
+	 */
 	private final List<GatewayFilter> gatewayFilters;
 
 	private final Map<String, Object> metadata;
